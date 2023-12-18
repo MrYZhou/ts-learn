@@ -7,7 +7,8 @@ const num: number = 1;
 const str: string = "larry";
 // 数组
 const arr: number[] = [1, 2, 3];
-// 是一个对象
+// 可以接对象,Object和小object都是类型。大Object可以包含所有，小object比大object少接5种类型
+// 布尔,数字,字符串,null,undefined
 const obj: object = {}
 // 偷懒做法，不考虑啥类型，就直接用这个
 const everything: any = 1
