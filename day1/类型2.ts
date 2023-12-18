@@ -18,3 +18,20 @@ console.log(num1);
 // 类型别名,主要是省略代码量,用别名替代
 type flag = string | number;
 function hello(value: flag) {}
+
+//交叉类型 合并两个对象的类型声明
+type Flag1 = { x: number };
+type Flag2 = Flag1 & { y: string };
+let flag3: Flag2 = {
+  x: 1,
+  y: "hello"
+};
+
+//类型保护,我也不懂咋用
+// typeof ,in,instanceof 
+function isObject(value: unknown): value is object {
+  return typeof value === "object" && value !== null;
+}
+function fn(x: string | object) {
+}
+fn({a:1})
