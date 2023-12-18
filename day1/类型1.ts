@@ -14,6 +14,6 @@ const everything: any = 1
 // 元组
 const tuple: [string, number] = ["hello", 1];
 
-//  其他：
+//  拓展：
 //  Enum 类型，any，null 和 undefined
 // Unknown 类型，void 类型，never 类型
