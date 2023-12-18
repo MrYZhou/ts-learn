@@ -14,3 +14,7 @@ let count = 123; //为number类型
 let param = "12121"
 let num1: number = (param as string).length;
 console.log(num1);
+
+// 类型别名,主要是省略代码量,用别名替代
+type flag = string | number;
+function hello(value: flag) {}
