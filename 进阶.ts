@@ -1,12 +1,11 @@
 
-//联合类型(Union Types), 就是一个变量可以接收多种类型
-
-let myStatus: number | string
-myStatus = "1"
-myStatus = 1
 
 
 // 拓展
+
+//  Enum 类型，any，null 和 undefined
+// Unknown 类型，void 类型，never 类型
+
 //类型推论,在赋值的时候，ts能z自动推断类型
 let count = 123; //为number类型
 
@@ -17,7 +16,7 @@ console.log(num1);
 
 // 类型别名,主要是省略代码量,用别名替代
 type flag = string | number;
-function hello(value: flag) {}
+function hello1(value: flag) { }
 
 //交叉类型 合并两个对象的类型声明
 type Flag1 = { x: number };
@@ -27,11 +26,32 @@ let flag3: Flag2 = {
   y: "hello"
 };
 
-//类型保护,我也不懂咋用
+
+//类型保护,我也不懂咋用???
 // typeof ,in,instanceof 
 function isObject(value: unknown): value is object {
   return typeof value === "object" && value !== null;
 }
 function fn(x: string | object) {
 }
-fn({a:1})
+fn({ a: 1 })
+
+
+// 函数类型
+type SumFunc = (x: number, y: number) => number;
+let countNumber: SumFunc = function (a, b) {
+  return a + b;
+};
+// 函数重载,ts一下子创建多个函数在同一个方法体中（不要使用）
+let obj1: any = {};
+function attr(val: string): void;
+function attr(val: number): void;
+function attr(val: any): void {
+  if (typeof val === "string") {
+    obj1.name = val;
+  } else {
+    obj1.age = val;
+  }
+}
+attr("hahaha");
+attr(9);
