@@ -42,6 +42,13 @@ type SumFunc = (x: number, y: number) => number;
 let countNumber: SumFunc = function (a, b) {
   return a + b;
 };
+
+// 不定参数
+function sum(...numbers: number[]) {
+  return numbers.reduce((val, item) => (val += item), 0);
+}
+console.log(sum(1, 2, 3));
+
 // 函数重载,ts一下子创建多个函数在同一个方法体中（不要使用）
 let obj1: any = {};
 function attr(val: string): void;
@@ -120,6 +127,21 @@ let animals: Animal1[] = [dog1, cat1];
 animals.forEach((i) => {
   i.sleep();
 });
+
+
+// =================
+// 接口
+
+
+// =================
+// 泛型
+
+
+// =================
+// 装饰器
+
+// =================
+// 技巧
 
 
 

@@ -1,3 +1,5 @@
+module base {
+ 
 // 1.类型
 //布尔
 const flag: boolean = true;
@@ -7,26 +9,26 @@ const num: number = 1;
 const str: string = "larry";
 // 数组
 const arr: number[] = [1, 2, 3];
-// 可以接对象,Object和小object都是类型。大Object可以包含所有，小object比大object少接5种类型
+// 可以接对象,大Object和小object都是类型。大Object可以包含所有，小object比大object少接5种类型
 // 布尔,数字,字符串,null,undefined
 const obj: object = {}
-// 偷懒做法，不考虑啥类型，就直接用这个
-const everything: any = 1
 // 元组
 const tuple: [string, number] = ["hello", 1];
 
 //联合类型(Union Types), 就是一个变量可以接收多种类型
-
 let myStatus1: number | string
 myStatus1 = "1"
 myStatus1 = 1
 
+// 偷懒做法，不考虑啥类型，就直接用这个
+const everything: any = 1
+
+// ===========================
 // 2.函数
 function hello(name: string): void {
   console.log("hello", name);
 }
 hello("larry");
-
 
 //可选参数,注意和不定参数一样要在最后一个
 function print(name: string, age?: number): void {
@@ -40,17 +42,12 @@ function ajax(url: string, method: string = "GET") {
 }
 ajax("/users");
 
-// 不定参数
-function sum(...numbers: number[]) {
-  return numbers.reduce((val, item) => (val += item), 0);
-}
-console.log(sum(1, 2, 3));
 
 //==========
 // 类:
 // 属性，静态属性，
 // 1个构造方法，get/set , 静态方法，实例方法
-// 默认省略public修饰符 public（全部都能访问）, protected (自己和子类) ,private (自己)
+// 修饰符有3个,默认public修饰符 public（全部都能访问）, protected (自己和子类) ,private (自己)
 //==========
 console.log('\n\n\n类================');
 
@@ -85,3 +82,7 @@ let user = new User("123");
 user.name = "world";
 user.setPriname="11"
 console.log(user, User.getmyName());
+
+// =================
+// 接口
+}
