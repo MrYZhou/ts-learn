@@ -55,3 +55,71 @@ function attr(val: any): void {
 }
 attr("hahaha");
 attr(9);
+
+// 继承类
+class Person {
+  name: string;
+  age: number;
+  constructor(name: string, age: number) {
+    //构造函数
+    this.name = name;
+    this.age = age;
+  }
+  getName(): string {
+    return this.name;
+  }
+  setName(name: string): void {
+    this.name = name;
+  }
+}
+class Student extends Person {
+  no: number;
+  constructor(name: string, age: number, no: number) {
+    super(name, age);
+    this.no = no;
+  }
+  getNo(): number {
+    return this.no;
+  }
+}
+let s1 = new Student("hello", 10, 1);
+console.log(s1);
+
+// 抽象类
+abstract class Animal {
+  name!: string;
+  abstract speak(): void;
+}
+class Cat extends Animal {
+  speak() {
+    console.log("喵喵喵");
+  }
+}
+// let animal = new Animal(); //直接报错 无法创建抽象类的实例
+let cat = new Cat();
+cat.speak();
+
+// 继承和抽象常配合使用
+abstract class Animal1 {
+  // 声明抽象的方法，让子类去实现
+  abstract sleep(): void;
+}
+class Dog1 extends Animal1 {
+  sleep() {
+    console.log("dog sleep");
+  }
+}
+let dog1 = new Dog1();
+class Cat1 extends Animal1 {
+  sleep() {
+    console.log("cat sleep");
+  }
+}
+let cat1 = new Cat1();
+let animals: Animal1[] = [dog1, cat1];
+animals.forEach((i) => {
+  i.sleep();
+});
+
+
+

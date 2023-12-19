@@ -47,17 +47,25 @@ function sum(...numbers: number[]) {
 console.log(sum(1, 2, 3));
 
 //==========
-// 类:属性，静态属性，1个构造方法，get/set
+// 类:
+// 属性，静态属性，
+// 1个构造方法，get/set , 静态方法，实例方法
+// 默认省略public修饰符 public（全部都能访问）, protected (自己和子类) ,private (自己)
 //==========
 console.log('\n\n\n类================');
 
 class User {
   private readonly myname: string; // 只可以在构造函数时候赋值
-  static myName: string = "静态名称属性";
+  protected static myName: string = "静态名称属性";
   public priname!: string //！代表的是无需初始化,其他都是要初始化
   constructor(myname: string) {
     this.myname = myname;
   }
+  static getmyName() {
+    console.log(this); //注意静态方法里面的this指向的是类本身 而不是类的实例对象 所以静态方法里面只能访问类的静态属性和方法
+    return this.myName;
+  }
+
   get name() {
     return this.myname;
   }
@@ -76,4 +84,4 @@ class User {
 let user = new User("123");
 user.name = "world";
 user.setPriname="11"
-console.log(user);
+console.log(user, User.getmyName());
