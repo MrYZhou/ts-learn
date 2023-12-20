@@ -1,6 +1,4 @@
-
-
-
+module pro {
 // 拓展
 
 //  Enum 类型，any，null 和 undefined
@@ -132,6 +130,69 @@ animals.forEach((i) => {
 // =================
 // 接口
 
+  // 定义任意属性,在定义接口的时候无法预先知道有哪些属性的时候,
+  //可以使用 [propName:string]:any,propName 名字是任意的
+  interface Person {
+    id: number;
+    name: string;
+    [propName: string]: any;
+  }
+
+  let p1 = {
+    id: 1,
+    name: "hello",
+    age: 10,
+  };
+
+  //接口的继承
+  interface Speakable {
+    speak(): void;
+  }
+  interface SpeakChinese extends Speakable {
+    speakChinese(): void;
+  }
+  class Person3 implements SpeakChinese {
+    speak() {
+      console.log("Person");
+    }
+    speakChinese() {
+      console.log("speakChinese");
+    }
+  }
+
+
+  /**
+   * interface和type定义类型区别？
+   * 大部分情况一样，但是interface可以定义多次 会被自动合并为单个接口 类型别名不可以重复定义
+   * 区别1
+   * interface Point {
+      x: number;
+    }
+    interface Point {
+      y: number;
+    }
+    const point: Point = { x: 1, y: 2 };
+    
+    区别2:
+    interface 可通过继承增加类型定义
+    // 接口扩展接口
+    interface PointX {
+      x: number;
+    }
+  
+    interface Point extends PointX {
+      y: number;
+    }
+    // 类型通过&增加类型定义
+    type PointX = {
+      x: number;
+    };
+  
+    type Point = PointX & {
+      y: number;
+    };
+  */
+
 
 // =================
 // 泛型
@@ -145,3 +206,5 @@ animals.forEach((i) => {
 
 
 
+
+}

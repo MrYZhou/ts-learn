@@ -85,4 +85,24 @@ console.log(user, User.getmyName());
 
 // =================
 // 接口
+  interface Speakable {
+    id: number;
+    name: string;
+    speak(): void;
+  }
+  interface Eatable {
+    eat(): void;
+  }
+  //一个类可以实现多个接口
+  class Person2 implements Speakable, Eatable {
+    id: number;
+    name: string;
+    eat(): void {
+      throw new Error("Method not implemented.");
+    }
+    speak() {
+      console.log("Person说话");
+    }
+  }
+
 }
