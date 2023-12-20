@@ -95,8 +95,8 @@ console.log(user, User.getmyName());
   }
   //一个类可以实现多个接口
   class Person2 implements Speakable, Eatable {
-    id: number;
-    name: string;
+    id!: number;
+    name!: string;
     eat(): void {
       throw new Error("Method not implemented.");
     }
@@ -104,5 +104,73 @@ console.log(user, User.getmyName());
       console.log("Person说话");
     }
   }
+
+  // =================
+  // 泛型,正常应该算进阶知识，但是ts的代码几乎处处都是泛型，所以必学
+  // 普通
+  function createArray<T>(length: number, value: T): Array<T> {
+    let result: T[] = [];
+    for (let i = 0; i < length; i++) {
+      result[i] = value;
+    }
+    return result;
+  }
+  createArray<string>(3, "x"); // ['x', 'x', 'x']
+
+  // 元组,多参数
+  function swap<T, U>(tuple: [T, U]): [U, T] {
+    return [tuple[1], tuple[0]];
+  }
+  swap([7, "seven"]); // ['seven', 7]
+
+  // 泛型约束
+  /**
+   * function loggingIdentity<T>(arg: T): T {
+      console.log(arg.length);
+      return arg;
+    }
+    此处会报错，因为不知道类型有没有length.所以我们可以对类型进行约束，让编译器
+    判断可不可以调方法
+   */
+  interface Lengthwise {
+    length: number;
+  }
+  function loggingIdentity<T extends Lengthwise>(arg: T): T {
+    console.log(arg.length);
+    return arg;
+  }
+
+  // 泛型接口,定义接口的时候也可以指定泛型
+  interface Cart<T> {
+    list: T[];
+  }
+  let cart: Cart<{ name: string; price: number }> = {
+    list: [{ name: "hello", price: 10 }],
+  };
+  console.log(cart.list[0].name, cart.list[0].price);
+
+  // 泛型类,获取长度例子
+  class MyArray<T> {
+    private list: T[] = [];
+    add(value: T) {
+      this.list.push(value);
+    }
+    getMax(): T {
+      let result = this.list[0];
+      for (let i = 0; i < this.list.length; i++) {
+        if (this.list[i] > result) {
+          result = this.list[i];
+        }
+      }
+      return result;
+    }
+  }
+  let arr1 = new MyArray();
+  arr1.add(1);
+  arr1.add(2);
+  arr1.add(3);
+  let ret = arr1.getMax();
+  console.log(ret);
+
 
 }

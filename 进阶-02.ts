@@ -193,9 +193,25 @@ animals.forEach((i) => {
     };
   */
 
-
-// =================
 // 泛型
+  // 泛型类型别名
+  type Cart<T> = { list: T[] } | T[];
+  let c1: Cart<string> = { list: ["1"] };
+  let c2: Cart<number> = [1];
+
+  /**
+   * 泛型参数的默认类型
+   * 我们可以为泛型中的类型参数指定默认类型。当使用泛型时没有在代码中直接指定类型参数，
+   * 从实际值参数中也无法推测出时，这个默认类型就会起作用,很多情况都可以自动推导
+   */
+  function createArray2<T = number>(length: number, value: T): Array<T> {
+    let result: T[] = [];
+    for (let i = 0; i < length; i++) {
+      result[i] = value;
+    }
+    return result;
+  }
+  console.log(createArray2(3, 1));
 
 
 // =================
