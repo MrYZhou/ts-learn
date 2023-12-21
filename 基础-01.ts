@@ -173,4 +173,57 @@ console.log(user, User.getmyName());
   console.log(ret);
 
 
+  // 技巧
+  // typeof 获取一个变量的类型
+  //先定义变量，再定义类型
+  let p2 = {
+    name: "hello",
+    age: 10,
+    gender: "male",
+  };
+  type People = typeof p2;
+  function getName(p: People): string {
+    return p.name;
+  }
+  console.log('名字是', getName(p2));
+
+
+
+  // keyof 获取一个对象接口的所有 key 值。然后可以约束传进来的key是啥
+  interface Person {
+    name: string;
+    age: number;
+    gender: "male" | "female";
+  }
+  //type PersonKey = 'name'|'age'|'gender';
+  type PersonKey = keyof Person;
+  function getValueByKey(p: Person, key: PersonKey) {
+    return p[key];
+  }
+  let val = getValueByKey({
+    name: "hello",
+    age: 10,
+    gender: "male"
+  }, "name");
+  console.log(val);
+
+
+  // 映射类型in 在定义的时候用 in 操作符去批量定义类型中的属性
+  interface Person {
+    name: string;
+    age: number;
+    gender: "male" | "female";
+  }
+  //批量把一个接口中的属性都变成可选的
+  type PartPerson = {
+    [Key in keyof Person]?: Person[Key];
+  };
+  let p1: PartPerson = {};
+
+  //infer关键字 在条件类型语句中，可以用 infer 声明一个类型变量并且对它进行使用。
+  type ReturnType<T> = T extends (...args: any[]) => infer R ? R : any;
+
+
+
+
 }
