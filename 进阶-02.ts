@@ -316,12 +316,12 @@ animals.forEach((i) => {
     @get("/api/user")
     class Person {
       @field("name")
-      name: string = "hello";
+      private name: string = "hello";
       @field("age")
-      age: number = 10;
+      private age: number = 10;
   
       @rollback()
-      greet(@valid @param("name") name: string, @valid p2: string) { }
+      public greet(@valid @param("name") name: string, @valid p2: string) { }
     }
 
     /**
