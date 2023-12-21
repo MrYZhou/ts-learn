@@ -224,6 +224,18 @@ console.log(user, User.getmyName());
   type ReturnType<T> = T extends (...args: any[]) => infer R ? R : any;
 
 
+  // 内置工具类型,常用的工具
+  // 1.Exclude<T,U> 从 T 可分配给的类型中排除 U
+  type Exclude<T, U> = T extends U ? never : T;
+  type E = Exclude<string | number, string>;
+  let e: E = 10;
+  /**
+   * 2.Extract<T,U> 从 T 可分配给的类型中提取 U
+      type Extract<T, U> = T extends U ? T : never;
+      type E = Extract<string | number, string>;
+      let e: E = "1";
+   */
+
 
 
 }

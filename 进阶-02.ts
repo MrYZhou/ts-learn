@@ -8,8 +8,8 @@ module pro {
 let count = 123; //为number类型
 
 //类型断言,手动告诉编译器我要啥类型,这样编译器会给提示
-let param = "12121"
-let num1: number = (param as string).length;
+  let param1 = "12121"
+  let num1: number = (param1 as string).length;
 console.log(num1);
 
 // 类型别名,主要是省略代码量,用别名替代
@@ -215,15 +215,127 @@ animals.forEach((i) => {
 
 
 // =================
-  // 技巧
+  /**
+   * 装饰器
+   * 装饰器是一种声明，它能够被附加到类声明、方法、属性或参数上，可以修改类的行为
+    标注类上为类装饰器、
+    标注属性上为属性装饰器、
+    标注方法上为方法装饰器、
+    标注参数上为参数装饰器
+    装饰器的写法分为普通装饰器和装饰器工厂
+    使用@装饰器的写法需要把 tsconfig.json 的 experimentalDecorators 字段设置为 true
+
+   */
+
+  namespace mtype {
+    //还可以替换类,替换的类需和原类结构保持一致
+    function enhancer(constructor: Function) {
+      return class {
+        name: string = "jiagou";
+        age: number = 18
+        eat() {
+          console.log("吃饭饭\n");
+        }
+      };
+    }
+    @enhancer
+    class Person {
+      name!: string;
+      age!: number
+      eat!: Function;
+      constructor() { }
+    }
+    let p: Person = new Person();
+    console.log(p.name, p.age);
+    p.eat();
+  }
 
 
+
+  /**
+   * 装饰器带参数
+   * @param name 
+   */
+  module decrator {
+    function get(name: string) {
+      return function (constructor: Function) {
+        constructor.prototype.name = name;
+        constructor.prototype.constructor = constructor
+        console.log("类1装饰器");
+      };
+    }
+    function mapping(constructor: Function) {
+      constructor.prototype.name = "hello";
+      constructor.prototype.eat = function () {
+        console.log("eat");
+      };
+      console.log("类2装饰器");
+    }
+    function rollback() {
+      return function (
+        target: any,
+        methodName: string,
+        descriptor: PropertyDescriptor
+      ) {
+        console.log("方法装饰器");
+      };
+    }
+    function param2() {
+      return function (target: any, methodName: string, paramIndex: number) {
+        console.log("参数1装饰器");
+      };
+    }
+
+    function param(name:string) {
+      return function (target: any, methodName: string, paramIndex: number) {
+        console.log("参数1装饰器");
+      };
+
+    }
+    function Log(target: Function, key: string, parameterIndex: number) {
+      let functionLogged = key || target.prototype.constructor.name;
+      console.log(`The parameter in position ${parameterIndex} at ${functionLogged} has
+      been decorated`);
+    }
+    
+    
+
+    function valid(target: any, key: string, parameterIndex: number) {
+      console.log("参数2装饰器",target,key,parameterIndex);
+      // return function (target: any, methodName: string, paramIndex: number) {
+      //   
+      // };
+    }
+    function field(name: string) {
+      return function (target: any, propertyName: string) {
+        console.log(name + "属性装饰器");
+      };
+    }
+
+    @mapping
+    @get("/api/user")
+    class Person {
+      @field("name")
+      name: string = "hello";
+      @field("age")
+      age: number = 10;
   
+      @rollback()
+      greet(@valid @param("name") name: string, @valid p2: string) { }
+    }
+
+    /**
+    name属性装饰器
+    age属性装饰器
+    参数2装饰器
+    参数1装饰器
+    方法装饰器
+    类2装饰器
+    类1装饰器
+     */
 
 
-// =================
-  // 装饰器
-
+  }
 
 
 
